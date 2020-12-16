@@ -27,6 +27,11 @@
         <include refid="selectImage"></include>
         order by ${sortfield} ${sort}
     </select>
+    <select id="findImageByName" resultType="com.earthadmin.entity.Image">
+        <include refid="selectImage"></include>
+       <where>`name` = #{name}</where>
+
+    </select>
 
     <insert id="addImage" parameterType="com.earthadmin.entity.Image">
         insert into `images` (`_id`,`name`,`desc`,`path`,`type`,`west`,`east`,`south`,`north`,`minzoom`,`maxzoom`,`contenttype`,`thumbnail`,`date`)

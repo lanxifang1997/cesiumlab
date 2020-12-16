@@ -19,4 +19,5 @@ public interface ImageMapper {
 
     int addImage(Image image);
 
+    Image findImageByName(String name);
 }

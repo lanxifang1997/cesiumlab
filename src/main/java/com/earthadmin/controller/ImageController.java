@@ -61,12 +61,6 @@ public class ImageController {
         return ResultEntity.success(image,IMAGE_KEY);
     }
 
-//    @ApiOperation("上传影像")
-//    @PostMapping
-//    public String uploadImage(@ApiParam(value = "上传文件",required = true)@RequestParam MultipartFile file)  {
-//
-//        return null;
-//    }
 
 
     /**
@@ -81,14 +75,16 @@ public class ImageController {
     @PostMapping("/uploadImages")
     public ResultEntity uploadFolder(MultipartFile[] folder) {
 
-
         //E:/瓦片文件/image
-        location = location+"/image";
-        String id = imageService.addImage(folder);
-        if("".equals(id)){
+        location = location+"image";
+
+        String result = imageService.addImage(folder);
+        if("".equals(result)){
             return ResultEntity.error();
+        }else if("imagename is exist".equals(result)){
+            return ResultEntity.error("imagename is exist");
         }
-        FileUtils.saveMultiFile(location, folder,id);
+        FileUtils.saveMultiFile(location, folder,result);
 
 
 

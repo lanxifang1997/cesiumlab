@@ -74,14 +74,14 @@ public class ModelController {
     public ResultEntity uploadFolder(MultipartFile[] folder) {
         String[] split = folder[0].getOriginalFilename().split("/");
         String name = split[0];
-        String path = location+"/"+name+"/tileset.json";
+        String path = location+name+"/tileset.json";
         String id = addModel(name, path);
         if("".equals(id)){
             return ResultEntity.error();
         }
 
         // E:/瓦片文件/model
-        location = location+"/model";
+        location = location+"model";
 
         FileUtils.saveMultiFile(location, folder,id);
         return ResultEntity.success();

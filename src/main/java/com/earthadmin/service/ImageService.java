@@ -25,4 +25,6 @@ public interface ImageService {
      * @return
      */
     String addImage(MultipartFile[] folder);
+
+
 }

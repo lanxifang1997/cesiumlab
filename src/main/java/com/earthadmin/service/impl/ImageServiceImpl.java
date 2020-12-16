@@ -49,8 +49,14 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public String addImage(MultipartFile[] folder) {
         String[] split = folder[0].getOriginalFilename().split("/");
-        String id = UUID.randomUUID().toString().replace("-","").toLowerCase();
+
         String name = split[0];
+        /** 名字查重 */
+        Image temp = imageMapper.findImageByName(name);
+        if(temp!=null){
+            return "imagename is exist";
+        }
+        String id = UUID.randomUUID().toString().replace("-","").toLowerCase();
         String path = location+"/"+name;
         String desc = "";
         String contenttype = "image/png";
