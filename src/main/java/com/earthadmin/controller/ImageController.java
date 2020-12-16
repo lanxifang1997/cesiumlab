@@ -89,6 +89,9 @@ public class ImageController {
             return ResultEntity.error();
         }
         FileUtils.saveMultiFile(location, folder,id);
+
+
+
         return ResultEntity.success();
     }
 
