@@ -1,10 +1,12 @@
 package com.earthadmin.Utils;
 
 
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author lanxifang
@@ -53,13 +55,13 @@ public class FileUtils {
      * @param files
      * @return
      */
-    public static JSONObject extractionJson(MultipartFile[] files,String jsonName) {
+    public static HashMap extractionJson(MultipartFile[] files,String jsonName) {
         if (files == null || files.length == 0) {
             throw new RuntimeException("files is empty");
         }
         for (MultipartFile file : files) {
 
-            if (file.getOriginalFilename().endsWith("jsonName")){
+            if (file.getOriginalFilename().endsWith(jsonName)){
                 byte[] bytes = new byte[0];
                 try {
                     //获取里面的数据
@@ -72,8 +74,8 @@ public class FileUtils {
                         responseStrBuilder.append(inputStr);
                     }
                     String str = responseStrBuilder.toString();
-                    JSONObject jsonObject = JSONObject.fromObject(str);
-                    return jsonObject;
+                    HashMap map = (HashMap) JSONObject.parseObject(str, Map.class);
+                    return map;
                 } catch (Exception e) {
                     System.out.println("文件解析异常");
                 }
