@@ -1,6 +1,7 @@
 package com.earthadmin.mapper;
 
 import com.earthadmin.entity.Image;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import java.util.List;
  * @author lanxifang
  * @date 2020/12/14 10:59
  */
+@Mapper
 public interface ImageMapper {
     /**
      *

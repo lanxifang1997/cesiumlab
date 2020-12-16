@@ -2,8 +2,8 @@ package com.earthadmin.controller;
 
 import com.earthadmin.Utils.FileUtils;
 import com.earthadmin.dto.ResultEntity;
-import com.earthadmin.entity.Image;
-import com.earthadmin.service.ImageService;
+import com.earthadmin.entity.Terrain;
+import com.earthadmin.service.TerrainService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -21,18 +21,18 @@ import java.util.List;
 
 /**
  * @author lanxifang
- * @date 2020/12/14 9:59
+ * @date 2020/12/16 14:09
  */
-@Api(tags = "系统:影像管理")
+@Api(tags = "系统:地形管理")
 @Slf4j
 @RestController
-@RequestMapping("/image")
-public class ImageController {
+@RequestMapping("/terrain")
+public class TerrainController {
 
-    public static final String IMAGE_KEY = "images";
+    public static final String TERRAIN_KEY = "terrains";
 
     @Resource
-    private ImageService imageService;
+    private TerrainService terrainService;
 
     /**
      * 上传文件保存的本地目录
@@ -56,15 +56,15 @@ public class ImageController {
         if(sortfield==null ||"".equals(sortfield.trim())){
             ResultEntity.error("sortfield不能为空");
         }
-        List<Image> image = imageService.findImageBySortField(sort,sortfield);
+        List<Terrain> terrains = terrainService.findTerrainBySortField(sort,sortfield);
 
-        return ResultEntity.success(image,IMAGE_KEY);
+        return ResultEntity.success(terrains,TERRAIN_KEY);
     }
 
 
 
     /**
-     *  上传影像模型
+     *  上传地形模型
      * @param folder    整个文件夹一起上传
      * @return
      */
@@ -72,17 +72,17 @@ public class ImageController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "files", value = "多个文件", allowMultiple = true, dataType = "__file")
     })
-    @PostMapping("/uploadImages")
+    @PostMapping("/uploadTerrains")
     public ResultEntity uploadFolder(MultipartFile[] folder) {
 
-        //E:/瓦片文件/image
-        location = location+"image";
+        //E:/瓦片文件/Terrain
+        location = location+"terrain";
 
-        String result = imageService.addImage(folder);
+        String result = terrainService.addTerrain(folder);
         if("".equals(result)){
-            return ResultEntity.error();
-        }else if("imagename is exist".equals(result)){
-            return ResultEntity.error("imagename is exist");
+            return ResultEntity.error("save terrain failed");
+        }else if("terrainname is exist".equals(result)){
+            return ResultEntity.error("terrainname is exist");
         }
         FileUtils.saveMultiFile(location, folder,result);
 
@@ -90,7 +90,4 @@ public class ImageController {
 
         return ResultEntity.success();
     }
-
-
-
 }

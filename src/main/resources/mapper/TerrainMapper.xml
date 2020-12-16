@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.earthadmin.mapper.TerrainMapper">
+    <resultMap id="terrainResultMap" type="com.earthadmin.entity.Terrain">
+        <id property="_id" column="_id" />
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="path" column="path"/>
+        <result property="type" column="type"/>
+        <result property="west" column="west"/>
+        <result property="east" column="east"/>
+        <result property="south" column="south"/>
+        <result property="north" column="north"/>
+        <result property="minzoom" column="minzoom"/>
+        <result property="maxzoom" column="maxzoom"/>
+        <result property="contenttype" column="contenttype"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="date" column="date"/>
+    </resultMap>
+
+    <sql id="selectTerrain">
+        select `_id`,`name`,`desc`,`path`,`type`,`west`,`east`,`south`,`north`,`minzoom`,`maxzoom`,`contenttype`,`thumbnail`,`date` from terrains
+    </sql>
+
+
+    <select id="findTerrainByName" resultType="com.earthadmin.entity.Terrain">
+        <include refid="selectTerrain"></include>
+        <where>`name` = #{name}</where>
+    </select>
+
+    <select id="findTerrainBySortField" resultType="list" resultMap="terrainResultMap">
+        <include refid="selectTerrain"></include>
+        order by ${sortfield} ${sort}
+    </select>
+
+    <insert id="addTerrain" parameterType="com.earthadmin.entity.Terrain">
+        insert into `terrains`
+        (`_id`,`name`,`desc`,`path`,`type`,`west`,`east`,`south`,`north`,`minzoom`,`maxzoom`,`contenttype`,`thumbnail`,`date`)
+        values
+        (#{_id},#{name},#{desc},#{path},#{type},#{west},#{east},#{south},#{north},#{minzoom},#{maxzoom},#{contenttype},#{thumbnail},sysdate())
+    </insert>
+
+</mapper>

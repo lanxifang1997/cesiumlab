@@ -53,13 +53,13 @@ public class FileUtils {
      * @param files
      * @return
      */
-    public static JSONObject extractionLayerJson(MultipartFile[] files) {
+    public static JSONObject extractionJson(MultipartFile[] files,String jsonName) {
         if (files == null || files.length == 0) {
             throw new RuntimeException("files is empty");
         }
         for (MultipartFile file : files) {
 
-            if (file.getOriginalFilename().endsWith("layer.json")){
+            if (file.getOriginalFilename().endsWith("jsonName")){
                 byte[] bytes = new byte[0];
                 try {
                     //获取里面的数据
