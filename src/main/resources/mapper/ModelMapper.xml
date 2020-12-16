@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.earthadmin.mapper.ModelsMapper">
+    <resultMap id="modelResultMap" type="com.earthadmin.entity.Model">
+        <id property="_id" column="_id" />
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="path" column="path"/>
+        <result property="type" column="type"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="date" column="date"/>
+    </resultMap>
+
+    <sql id="selectModel">
+        select `_id`,`name`,`desc`,`path`,`type`,`thumbnail`,`date` from models
+    </sql>
+
+
+    <select id="findModelSortDateOrDesc" resultType="list" resultMap="modelResultMap">
+        <include refid="selectModel"></include>
+        order by ${sortfield} ${sort}
+    </select>
+
+    <select id="findModelByPath" resultType="com.earthadmin.entity.Model">
+       <include refid="selectModel"></include>
+        <where>
+            `path` = #{path}
+        </where>
+
+    </select>
+    <select id="findModelById" resultType="com.earthadmin.entity.Model">
+        <include refid="selectModel"></include>
+        <where>
+            `_id` = #{id}
+        </where>
+
+    </select>
+
+    <insert id="addModel" parameterType="com.earthadmin.entity.Model">
+        insert into `models`
+        (`_id`,`name`,`desc`,path,`type`,`thumbnail`,`date`) values(#{_id},#{name},#{desc},#{path},#{type},#{thumbnail},sysdate())
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,50 @@
+server:
+  port: 9000   #配置本服务器的端口为8080
+spring:
+  #数据库连接配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/cesiumlab?useSSL=false&serverTimezone=CST&allowMultiQueries=true
+    username: root
+    password: root
+
+
+#mybatis的相关配置
+mybatis:
+  #自动更新表
+  table:
+    auto: update
+  #实体类扫描地址
+  model:
+    pack: com.earthadmin.entity
+  #数据库类型
+  database:
+    type: mysql
+  #mapper配置文件
+#  type-aliases-package: com.earthadmin.entity
+#  mapper-locations[0]: classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml
+#  mapper-locations[1]: classpath:mapper/*Mapper.xml
+  #开启驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com:
+      earthadmin:
+        mapper: debug
+
+
+
+  #当mybatis.table.auto=create时，系统启动后，会将所有的表删除掉，然后根据model中配置的结构重新建表，该操作会破坏原有数据。
+#当mybatis.table.auto=update时，系统会自动判断哪些表是新建的，哪些字段要修改类型等，哪些字段要删除，哪些字段要新增，该操作不会破坏原有数据。
+#当mybatis.table.auto=none时，系统不做任何处理。
+ # mybatis.table.auto=update
+  #mybatis.model.pack这个配置是用来配置要扫描的用于创建表的对象的包名
+ # mybatis.model.pack=com.xiangzhang.entity （实体类的包名）
+  #数据库为mysql
+ # mybatis.database.type=mysql
+
+accessFile:
+  resourceHandler: /** #匹配需要拦截的URL
+  location: E:/瓦片文件/  #本地文件夹

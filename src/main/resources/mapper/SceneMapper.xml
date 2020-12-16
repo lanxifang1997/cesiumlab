@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址-->
+
+<mapper namespace="com.earthadmin.mapper.SceneMapper">
+    <resultMap id="sceneResultMap" type="com.earthadmin.entity.Scene">
+        <id property="_id" column="_id" />
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="content" column="content"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="date" column="date"/>
+        <result property="udate" column="udate"/>
+    </resultMap>
+    <insert id="saveScene" parameterType="com.earthadmin.entity.Scene" >
+        INSERT INTO `scene`
+        (`_id`,`name`,`desc`,`content`,`thumbnail`,`date`,`udate`)
+        VALUES(#{_id}, #{name},#{desc}, #{content},#{thumbnail},sysdate(),sysdate())
+
+    </insert>
+
+
+    <select id="findSceneById" resultType="com.earthadmin.entity.Scene" resultMap="sceneResultMap">
+        select `_id`,`name`,`desc`,`content`,`thumbnail`,`date`,`udate` from scene where _id = #{id}
+    </select>
+
+    <update id="updateSceneById" parameterType="com.earthadmin.entity.Scene">
+            update scene
+            <set>
+                <if test="scene.name!=null">
+                    `name` = #{scene.name},
+                </if>
+                <if test="scene.desc!=null">
+                    `desc` = #{scene.desc},
+                </if>
+                <if test="scene.content!=null">
+                    `content` = #{scene.content},
+                </if>
+                <if test="scene.thumbnail!=null">
+                    `thumbnail` = #{scene.thumbnail},
+                </if>
+                `udate` = sysdate()
+            </set>
+            where `_id`= #{_id}
+        </update>
+
+
+</mapper>
