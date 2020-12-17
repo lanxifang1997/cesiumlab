@@ -4,7 +4,9 @@ import com.earthadmin.entity.Model;
 import com.earthadmin.mapper.ModelsMapper;
 import com.earthadmin.service.ModelService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -22,6 +24,12 @@ public class ModelServiceImpl implements ModelService {
     private ModelsMapper modelMapper;
 
     /**
+     * 上传文件保存的本地目录
+     */
+    @Value("${accessFile.location}")
+    private String location;
+
+    /**
      * 查询所有结果根据条件排序
      * @param sort        升序或降序
      * @param sortfield        条件
@@ -35,16 +43,34 @@ public class ModelServiceImpl implements ModelService {
 
     /**
      * 添加瓦片模型
-     * @param model
+     * @param folder
      * @return
      */
     @Override
-    public int addModel(Model model) {
+    public String addModel(MultipartFile[] folder) {
+        //id
         String id = UUID.randomUUID().toString().replace("-","").toLowerCase();
-        log.info("-----------------ID:"+id);
+        //name
+        String[] split = folder[0].getOriginalFilename().split("/");
+        String name = split[0];
+        //path
+        String path = location+name+"/tileset.json";
+        /** 名字查重 */
+        Model temp = modelMapper.findModelByName(name);
+        if(temp!=null){
+            return "modelname is exist";
+        }
+        Model model = new Model();
         model.set_id(id);
+        model.setName(name);
+        model.setPath(path);
+        model.setType("file");
+        int result = modelMapper.addModel(model);
+        if(result!=1){
+            return "";
+        }
 
-        return modelMapper.addModel(model);
+        return id;
     }
 
     /**

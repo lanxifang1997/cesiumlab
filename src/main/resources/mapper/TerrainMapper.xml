@@ -30,7 +30,9 @@
 
     <select id="findTerrainBySortField" resultType="list" resultMap="terrainResultMap">
         <include refid="selectTerrain"></include>
-        order by ${sortfield} ${sort}
+            <if test="sortfield != null and sortfield != ''">
+            order by ${sortfield} ${sort}
+            </if>
     </select>
 
     <insert id="addTerrain" parameterType="com.earthadmin.entity.Terrain">

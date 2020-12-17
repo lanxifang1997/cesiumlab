@@ -52,9 +52,9 @@ public class ModelController {
     @ApiOperation("加载Lab服务")
     @GetMapping
     public ResultEntity findModelSortDateOrDesc(String sort, String sortfield){
-        if(sortfield==null ||"".equals(sortfield.trim())){
-            ResultEntity.error("sortfield不能为空");
-        }
+//        if(sortfield==null ||"".equals(sortfield.trim())){
+//            ResultEntity.error("sortfield不能为空");
+//        }
         List<Model> models = modelService.findModelSortDateOrDesc(sort,sortfield);
 
         return ResultEntity.success(models,MONDEL_KEY);
@@ -72,66 +72,19 @@ public class ModelController {
     })
     @PostMapping("/uploadModels")
     public ResultEntity uploadFolder(MultipartFile[] folder) {
-        String[] split = folder[0].getOriginalFilename().split("/");
-        String name = split[0];
-        String path = location+name+"/tileset.json";
-        String id = addModel(name, path);
-        if("".equals(id)){
-            return ResultEntity.error();
-        }
 
-        // E:/瓦片文件/model
+        //E:/瓦片文件/Terrain
         location = location+"model";
 
-        FileUtils.saveMultiFile(location, folder,id);
+        String result = modelService.addModel(folder);
+        if("".equals(result)){
+            return ResultEntity.error("save model failed");
+        }else if("modelname is exist".equals(result)){
+            return ResultEntity.error("modelname is exist");
+        }
+        FileUtils.saveMultiFile(location, folder,result);
         return ResultEntity.success();
     }
 
-    /**
-     *  将model保存在数据库
-     * @param name    文件名
-     * @param path   文件路径
-     * @return
-     */
-    public String addModel(String name,String path){
-
-        Model model = new Model();
-        model.setName(name);
-        model.setPath(path);
-        model.setType("file");
-        int result = modelService.addModel(model);
-        if(result!=1){
-            return "";
-        }
-        return model.get_id();
-    }
-
-//     /**
-//     * 上传瓦片
-//     * @param file
-//     * @return
-//     */
-//    @ApiOperation("上传瓦片模型")
-//    @RequestMapping("/uploadModel")
-//    public ResultEntity uploadModel(@ApiParam(value = "上传文件",required = true) @RequestParam("file")MultipartFile file,String path){
-//        String pathName = file.getOriginalFilename();
-//        path = StringUtils.replace(path,"\\","/");
-//        String[] split = StringUtils.split(path, "/");
-//
-//        String name = split[split.length - 2];
-//        String id = addModel(name, path);
-//        try {
-//            String uploadpath = location+id+"/"+pathName;
-//            File dest = new File(uploadpath);
-//            if(!dest.getParentFile().exists()){
-//                dest.getParentFile().mkdirs();
-//            }
-//            file.transferTo(dest);
-//        } catch (IOException e) {
-//            log.info(e.getMessage());
-//        }
-//
-//        return ResultEntity.success(id);
-//    }
 
 }

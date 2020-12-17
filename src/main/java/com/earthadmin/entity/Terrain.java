@@ -31,16 +31,16 @@ public class Terrain extends BaseEntity {
     @Column(name = "path",type = MySqlTypeConstant.VARCHAR,length = 45)
     private String path;
 
-    @Column(name = "west",type = MySqlTypeConstant.DECIMAL,length = 45)
+    @Column(name = "west",type = MySqlTypeConstant.DECIMAL,decimalLength = 20,length = 25)
     private BigDecimal west;
 
-    @Column(name = "east",type = MySqlTypeConstant.DECIMAL,length = 45)
+    @Column(name = "east",type = MySqlTypeConstant.DECIMAL,decimalLength = 20,length = 25)
     private BigDecimal east;
 
-    @Column(name = "south",type = MySqlTypeConstant.DECIMAL,length = 45)
+    @Column(name = "south",type = MySqlTypeConstant.DECIMAL,decimalLength = 20,length = 25)
     private BigDecimal south;
 
-    @Column(name = "north",type = MySqlTypeConstant.DECIMAL,length = 45)
+    @Column(name = "north",type = MySqlTypeConstant.DECIMAL,decimalLength = 20,length = 25)
     private BigDecimal north;
 
     @Column(name = "minzoom",type = MySqlTypeConstant.INT)

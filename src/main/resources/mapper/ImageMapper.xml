@@ -25,10 +25,13 @@
 
     <select id="findImageBySortField" resultType="list" resultMap="imageResultMap">
         <include refid="selectImage"></include>
-        order by ${sortfield} ${sort}
+            <if test="sortfield != null and sortfield != ''">
+                order by ${sortfield} ${sort}
+            </if>
     </select>
     <select id="findImageByName" resultType="com.earthadmin.entity.Image">
         <include refid="selectImage"></include>
+
        <where>`name` = #{name}</where>
 
     </select>

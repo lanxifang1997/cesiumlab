@@ -25,4 +25,6 @@ public interface ModelsMapper {
     Model findModelByPath(String path);
 
     Model findModelById(String _id);
+
+    Model findModelByName(String name);
 }

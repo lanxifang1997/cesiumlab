@@ -20,6 +20,8 @@ public class SceneServiceImpl implements SceneService {
     @Autowired
     private SceneMapper sceneMapper;
 
+
+
     /**
      *  保存场景
      * @param name      名字

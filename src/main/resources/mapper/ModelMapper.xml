@@ -18,7 +18,9 @@
 
     <select id="findModelSortDateOrDesc" resultType="list" resultMap="modelResultMap">
         <include refid="selectModel"></include>
-        order by ${sortfield} ${sort}
+            <if test="sortfield != null and sortfield != ''">
+            order by ${sortfield} ${sort}
+            </if>
     </select>
 
     <select id="findModelByPath" resultType="com.earthadmin.entity.Model">
@@ -34,6 +36,10 @@
             `_id` = #{id}
         </where>
 
+    </select>
+    <select id="findModelByName" resultType="com.earthadmin.entity.Model">
+        <include refid="selectModel"></include>
+        <where>`name` = #{name}</where>
     </select>
 
     <insert id="addModel" parameterType="com.earthadmin.entity.Model">

@@ -42,7 +42,7 @@ public class SceneCtronller {
     public ResultEntity uploadById(String _id){
 
         Scene scene = sceneService.findSceneById(_id);
-        log.info("----------------------"+scene.get_id());
+//        log.info("----------------------"+scene.get_id());
         //error
         if(scene==null){
             return ResultEntity.error();

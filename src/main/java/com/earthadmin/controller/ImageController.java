@@ -53,9 +53,9 @@ public class ImageController {
     @ApiOperation("加载Lab服务")
     @GetMapping
     public ResultEntity findImageBySortField(String sort, String sortfield){
-        if(sortfield==null ||"".equals(sortfield.trim())){
-            ResultEntity.error("sortfield不能为空");
-        }
+//        if(sortfield==null ||"".equals(sortfield.trim())){
+//            ResultEntity.error("sortfield不能为空");
+//        }
         List<Image> image = imageService.findImageBySortField(sort,sortfield);
 
         return ResultEntity.success(image,IMAGE_KEY);
