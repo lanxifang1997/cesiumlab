@@ -53,9 +53,9 @@ public class TerrainController {
     @ApiOperation("加载Lab服务")
     @GetMapping
     public ResultEntity findImageBySortField(String sort, String sortfield){
-        if(sortfield==null ||"".equals(sortfield.trim())){
-            ResultEntity.error("sortfield不能为空");
-        }
+//        if(sortfield==null ||"".equals(sortfield.trim())){
+//            ResultEntity.error("sortfield不能为空");
+//        }
         List<Terrain> terrains = terrainService.findTerrainBySortField(sort,sortfield);
 
         return ResultEntity.success(terrains,TERRAIN_KEY);
