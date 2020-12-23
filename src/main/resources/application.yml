@@ -7,16 +7,17 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/cesiumlab?useSSL=false&serverTimezone=CST&allowMultiQueries=true
     username: root
     password: root
-
+    type: com.alibaba.druid.pool.DruidDataSource
 
 #mybatis的相关配置
 mybatis:
+
   #自动更新表
   table:
     auto: update
   #实体类扫描地址
   model:
-    pack: com.earthadmin.entity
+    pack: com.earthadmin.domain.entity
   #数据库类型
   database:
     type: mysql
@@ -27,7 +28,6 @@ mybatis:
   #开启驼峰命名
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:
   level:
     com:
@@ -48,3 +48,16 @@ logging:
 accessFile:
   resourceHandler: /** #匹配需要拦截的URL
   location: E:/瓦片文件/  #本地文件夹
+
+
+mybatis-plus:
+  mapper-locations: classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml,classpath:mapper/*Mapper.xml
+#  mapper-locations[0]: classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml
+#  mapper-locations[1]: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.earthadmin.domain.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+CROS_ALLOWED_ORIGINS: http://localhost:9530,http://10.168.1.145:9530
+

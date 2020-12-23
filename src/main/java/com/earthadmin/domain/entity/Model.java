@@ -1,5 +1,6 @@
-package com.earthadmin.entity;
+package com.earthadmin.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.earthadmin.common.entity.BaseEntity;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
@@ -11,11 +12,12 @@ import lombok.Data;
  * @date 2020/12/04 16:58
  */
 @Table(name = "models")
+@TableName("models")
 @Data
 public class Model extends BaseEntity {
 
-//    @Column(name = "_id",type = MySqlTypeConstant.VARCHAR,length = 45,isKey = true,isNull = false)
-//    private String _id;
+//    @Column(name = "id",type = MySqlTypeConstant.VARCHAR,length = 45,isKey = true,isNull = false)
+//    private String id;
 //
 //    @Column(name = "name",type = MySqlTypeConstant.VARCHAR,length = 45)
 //    private String name;

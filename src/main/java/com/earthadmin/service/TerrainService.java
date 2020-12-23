@@ -1,6 +1,6 @@
 package com.earthadmin.service;
 
-import com.earthadmin.entity.Terrain;
+import com.earthadmin.domain.entity.Terrain;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -26,4 +26,18 @@ public interface TerrainService {
      * @return
      */
     String addTerrain(MultipartFile[] folder);
+
+    /**
+     *
+     * @param terrain
+     * @return
+     */
+    int updateTerrainById(Terrain terrain);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    int deleteTerrainById(String id);
 }

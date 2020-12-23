@@ -19,6 +19,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Value("${accessFile.resourceHandler}")
     private String resourceHandler;
 
+    @Value("${CROS_ALLOWED_ORIGINS}")
+    private String[] allowedOrigins;
+
     /**
      * 上传文件保存的本地目录
      */
@@ -32,7 +35,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Override
     protected void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins(allowedOrigins)
                 .allowedMethods("GET", "HEAD", "POST","PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .exposedHeaders("access-control-allow-headers",
@@ -40,7 +43,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                         "access-control-allow-origin",
                         "access-control-max-age",
                         "X-Frame-Options")
-                .allowCredentials(false).maxAge(3600);
+                .allowCredentials(true).maxAge(3600);
         super.addCorsMappings(registry);
     }
 

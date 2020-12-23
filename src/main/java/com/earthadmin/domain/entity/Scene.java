@@ -1,4 +1,4 @@
-package com.earthadmin.entity;
+package com.earthadmin.domain.entity;
 
 import com.earthadmin.common.entity.BaseEntity;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
@@ -26,8 +26,8 @@ public class Scene extends BaseEntity {
      * postProcess : {"xbsjType":"PostProcess","xbsjGuid":"320cdb6b-f255-4bd5-aa00-3eef6af4daed","ambientOcclusion":{"xbsjType":"AmbientOcclusionStage","xbsjGuid":"3e7944d1-26fb-42a0-ab13-733f84c041fb"},"bloom":{"xbsjType":"BloomStage","xbsjGuid":"a3786647-771f-4b89-a871-eb66c153faa7"},"blackAndWhite":{"xbsjType":"BlackAndWhiteStage","xbsjGuid":"e2755a5b-a46d-4814-a333-15167d9dfb0d"},"brightness":{"xbsjType":"BrightnessStage","xbsjGuid":"332e0059-3c6e-4e5f-8912-8b24006efc36"},"depthOfField":{"xbsjType":"DepthOfFieldStage","xbsjGuid":"56b1944f-ac53-49d6-a00e-1d6f20a3f4f8"},"lensFlare":{"xbsjType":"LensFlareStage","xbsjGuid":"b43df682-a6a2-4dfa-8155-ab10347fabaa"},"mosaic":{"xbsjType":"MosaicStage","xbsjGuid":"f6b8087a-a81a-4294-8117-2d449c2acda4"},"nightVision":{"xbsjType":"NightVisionStage","xbsjGuid":"0cfbb007-376d-465b-86dd-8520a2a35007"},"silhouette":{"xbsjType":"XbsSilhouetteStage","xbsjGuid":"849dae94-c0c0-45c0-9441-4bb13aa92d9a"}}
      * effect : {"xbsjType":"Effect","xbsjGuid":"7a886fbd-b3b2-4af6-9857-03f27cae2707","shadow":{"xbsjType":"Shadow","xbsjGuid":"73194c17-d77c-4b6a-862d-61e26270b1ca"},"forceSunPos":{"position":[2.0245819323134224,0.6981317007977318,10000000]}}
      */
-//    @Column(name = "_id",type = MySqlTypeConstant.VARCHAR,length = 45,isKey = true,isNull = false)
-//    private String _id;
+//    @Column(name = "id",type = MySqlTypeConstant.VARCHAR,length = 45,isKey = true,isNull = false)
+//    private String id;
 //
 //    @Column(name = "name",type = MySqlTypeConstant.VARCHAR,length = 45)
 //    private String name;

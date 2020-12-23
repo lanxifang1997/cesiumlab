@@ -1,5 +1,6 @@
-package com.earthadmin.entity;
+package com.earthadmin.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.earthadmin.common.entity.BaseEntity;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
@@ -14,10 +15,11 @@ import java.math.BigDecimal;
  */
 @Data
 @Table(name ="terrains")
+@TableName("terrains")
 public class Terrain extends BaseEntity {
 
-//    @Column(name = "_id",type = MySqlTypeConstant.VARCHAR,length = 45,isKey = true,isNull = false)
-//    private String _id;
+//    @Column(name = "id",type = MySqlTypeConstant.VARCHAR,length = 45,isKey = true,isNull = false)
+//    private String id;
 //
 //    @Column(name = "name",type = MySqlTypeConstant.VARCHAR,length = 45)
 //    private String name;

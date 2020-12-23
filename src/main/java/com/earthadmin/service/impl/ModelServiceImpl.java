@@ -1,6 +1,6 @@
 package com.earthadmin.service.impl;
 
-import com.earthadmin.entity.Model;
+import com.earthadmin.domain.entity.Model;
 import com.earthadmin.mapper.ModelsMapper;
 import com.earthadmin.service.ModelService;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +61,7 @@ public class ModelServiceImpl implements ModelService {
             return "modelname is exist";
         }
         Model model = new Model();
-        model.set_id(id);
+        model.setId(id);
         model.setName(name);
         model.setPath(path);
         model.setType("file");
@@ -84,5 +84,15 @@ public class ModelServiceImpl implements ModelService {
              return true;
          }
          return false;
+    }
+
+    @Override
+    public int updateModelById(Model model) {
+        return modelMapper.updateById(model);
+    }
+
+    @Override
+    public int deleteModelById(String id) {
+        return modelMapper.deleteById(id);
     }
 }

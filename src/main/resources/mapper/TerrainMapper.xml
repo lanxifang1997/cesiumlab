@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.earthadmin.mapper.TerrainMapper">
-    <resultMap id="terrainResultMap" type="com.earthadmin.entity.Terrain">
+    <resultMap id="terrainResultMap" type="com.earthadmin.domain.entity.Terrain">
         <id property="_id" column="_id" />
         <result property="name" column="name"/>
         <result property="desc" column="desc"/>
@@ -19,11 +19,11 @@
     </resultMap>
 
     <sql id="selectTerrain">
-        select `_id`,`name`,`desc`,`path`,`type`,`west`,`east`,`south`,`north`,`minzoom`,`maxzoom`,`contenttype`,`thumbnail`,`date` from terrains
+        select `id`,`name`,`desc`,`path`,`type`,`west`,`east`,`south`,`north`,`minzoom`,`maxzoom`,`contenttype`,`thumbnail`,`date` from terrains
     </sql>
 
 
-    <select id="findTerrainByName" resultType="com.earthadmin.entity.Terrain">
+    <select id="findTerrainByName" resultType="com.earthadmin.domain.entity.Terrain">
         <include refid="selectTerrain"></include>
         <where>`name` = #{name}</where>
     </select>
@@ -35,11 +35,11 @@
             </if>
     </select>
 
-    <insert id="addTerrain" parameterType="com.earthadmin.entity.Terrain">
+    <insert id="addTerrain" parameterType="com.earthadmin.domain.entity.Terrain">
         insert into `terrains`
-        (`_id`,`name`,`desc`,`path`,`type`,`west`,`east`,`south`,`north`,`minzoom`,`maxzoom`,`contenttype`,`thumbnail`,`date`)
+        (`id`,`name`,`desc`,`path`,`type`,`west`,`east`,`south`,`north`,`minzoom`,`maxzoom`,`contenttype`,`thumbnail`,`date`)
         values
-        (#{_id},#{name},#{desc},#{path},#{type},#{west},#{east},#{south},#{north},#{minzoom},#{maxzoom},#{contenttype},#{thumbnail},sysdate())
+        (#{id},#{name},#{desc},#{path},#{type},#{west},#{east},#{south},#{north},#{minzoom},#{maxzoom},#{contenttype},#{thumbnail},sysdate())
     </insert>
 
 </mapper>

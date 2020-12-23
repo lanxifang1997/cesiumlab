@@ -1,18 +1,24 @@
 package com.earthadmin;
 
+import com.earthadmin.domain.entity.Scene;
+import com.earthadmin.mapper.SceneMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @SpringBootTest
 class SpringbootApplicationTests {
 
+    @Resource
+    private SceneMapper sceneMapper;
+
     @Test
     void contextLoads() {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Object> resourceUrl1 = restTemplate.getForEntity("E:/共享文件/综合井场布/场布实景/tileset.json", Object.class);
-        System.out.println("----");
+        List<Scene> list = sceneMapper.selectList(null);
+        System.out.println(list.toString());
+
     }
 
 }

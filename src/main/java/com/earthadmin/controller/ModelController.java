@@ -2,7 +2,7 @@ package com.earthadmin.controller;
 
 import com.earthadmin.Utils.FileUtils;
 import com.earthadmin.dto.ResultEntity;
-import com.earthadmin.entity.Model;
+import com.earthadmin.domain.entity.Model;
 import com.earthadmin.service.ModelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -73,8 +70,8 @@ public class ModelController {
     @PostMapping("/uploadModels")
     public ResultEntity uploadFolder(MultipartFile[] folder) {
 
-        //E:/瓦片文件/Terrain
-        location = location+"model";
+        //E:/瓦片文件/model
+        //location+"model";
 
         String result = modelService.addModel(folder);
         if("".equals(result)){
@@ -82,9 +79,32 @@ public class ModelController {
         }else if("modelname is exist".equals(result)){
             return ResultEntity.error("modelname is exist");
         }
-        FileUtils.saveMultiFile(location, folder,result);
+        FileUtils.saveMultiFile(location+"model", folder,result);
         return ResultEntity.success();
     }
 
 
+    @ApiOperation("更新影像模型")
+    @PutMapping("/{id}")
+    public ResultEntity updateModelBById(@PathVariable String id , Model model){
+        model.setId(id);
+        int temp = modelService.updateModelById(model);
+        if(temp!=1){
+            ResultEntity.error();
+        };
+
+        return ResultEntity.success();
+    }
+
+    @ApiOperation("删除影像模型")
+    @DeleteMapping("/{id}")
+    public ResultEntity deleteModelById(@PathVariable String id){
+        int temp = modelService.deleteModelById(id);
+        if(temp!=1){
+            ResultEntity.error();
+        }
+
+        return ResultEntity.success();
+
+    }
 }

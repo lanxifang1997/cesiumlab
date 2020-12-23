@@ -1,6 +1,6 @@
 package com.earthadmin.service;
 
-import com.earthadmin.entity.Image;
+import com.earthadmin.domain.entity.Image;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -27,4 +27,7 @@ public interface ImageService {
     String addImage(MultipartFile[] folder);
 
 
+    int updateImageById(Image image);
+
+    int deleteImageById(String id);
 }

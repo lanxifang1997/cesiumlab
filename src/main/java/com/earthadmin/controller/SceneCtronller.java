@@ -1,7 +1,7 @@
 package com.earthadmin.controller;
 
 import com.earthadmin.dto.ResultEntity;
-import com.earthadmin.entity.Scene;
+import com.earthadmin.domain.entity.Scene;
 import com.earthadmin.service.SceneService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,15 +34,15 @@ public class SceneCtronller {
     /**
      * 根据ID加载Scene
      *
-     * @param _id
+     * @param id
      * @return
      */
     @ApiOperation("加载场景")
     @GetMapping
-    public ResultEntity uploadById(String _id){
+    public ResultEntity uploadById(String id){
 
-        Scene scene = sceneService.findSceneById(_id);
-//        log.info("----------------------"+scene.get_id());
+        Scene scene = sceneService.findSceneById(id);
+//        log.info("----------------------"+scene.getId());
         //error
         if(scene==null){
             return ResultEntity.error();
@@ -89,6 +89,24 @@ public class SceneCtronller {
             return ResultEntity.error();
         }
         log.info("---------------更新场景成功");
+        return ResultEntity.success();
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation("删除场景")
+    @DeleteMapping("/{id}")
+    public ResultEntity deleteScene(@PathVariable String id){
+        int temp = sceneService.deleteById(id);
+        //判断是否删除成功
+        if(temp!=1) {
+
+            return ResultEntity.error();
+        }
+        log.info("---------------删除场景成功");
         return ResultEntity.success();
     }
 

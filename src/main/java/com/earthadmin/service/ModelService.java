@@ -1,6 +1,6 @@
 package com.earthadmin.service;
 
-import com.earthadmin.entity.Model;
+import com.earthadmin.domain.entity.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -26,7 +26,24 @@ public interface ModelService {
      */
     String addModel(MultipartFile[] folder);
 
+    /**
+     *
+     * @param path
+     * @return
+     */
     boolean existsPath(String path);
 
+    /**
+     *
+     * @param model
+     * @return
+     */
+    int updateModelById(Model model);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
+    int deleteModelById(String id);
 }

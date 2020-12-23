@@ -2,7 +2,7 @@ package com.earthadmin.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.earthadmin.Utils.FileUtils;
-import com.earthadmin.entity.Terrain;
+import com.earthadmin.domain.entity.Terrain;
 import com.earthadmin.mapper.TerrainMapper;
 import com.earthadmin.service.TerrainService;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,7 +52,9 @@ public class TerrainServiceImpl implements TerrainService {
      */
     @Override
     public String addTerrain(MultipartFile[] folder) {
-
+        if(folder==null){
+            return "folder is null";
+        }
         String[] split = folder[0].getOriginalFilename().split("/");
         String name = split[0];
         /** 名字查重 */
@@ -82,7 +84,7 @@ public class TerrainServiceImpl implements TerrainService {
         int maxzoom = (int) hashMap.get("maxzoom");
 
         Terrain terrain = new Terrain();
-        terrain.set_id(id);
+        terrain.setId(id);
         terrain.setName(name);
         terrain.setPath(path);
         terrain.setDesc(desc);
@@ -100,5 +102,15 @@ public class TerrainServiceImpl implements TerrainService {
         };
 
         return id;
+    }
+
+    @Override
+    public int updateTerrainById(Terrain terrain) {
+        return terrainMapper.updateById(terrain);
+    }
+
+    @Override
+    public int deleteTerrainById(String id) {
+        return terrainMapper.deleteById(id);
     }
 }

@@ -1,7 +1,9 @@
 package com.earthadmin.mapper;
 
 
-import com.earthadmin.entity.Model;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.earthadmin.domain.entity.Model;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -10,7 +12,8 @@ import java.util.List;
  * @author lanxifang
  * @date 2020/12/07 14:35
  */
-public interface ModelsMapper {
+@Mapper
+public interface ModelsMapper extends BaseMapper<Model> {
 
     /**
      * 根据条件将查询结果进行排序
@@ -24,7 +27,7 @@ public interface ModelsMapper {
 
     Model findModelByPath(String path);
 
-    Model findModelById(String _id);
+    Model findModelById(String id);
 
     Model findModelByName(String name);
 }

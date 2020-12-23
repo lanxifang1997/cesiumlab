@@ -1,18 +1,17 @@
 package com.earthadmin.mapper;
 
-import com.earthadmin.entity.Scene;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.earthadmin.domain.entity.Scene;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * @author lanxifang
  * @date 2020/12/1 0001 18:19:47
  */
 @Mapper
-@Repository
-public interface SceneMapper{
+public interface SceneMapper extends BaseMapper<Scene> {
 
-//    private String _id;
+//    private String id;
 //    private String name;
 //    private String desc;
 //    private String content;
@@ -25,7 +24,7 @@ public interface SceneMapper{
 
     Scene findSceneById(String id);
 
-    int updateSceneById(String _id,Scene scene);
+    int updateSceneById(String id,Scene scene);
 
 }
 

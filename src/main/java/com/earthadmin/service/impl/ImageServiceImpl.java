@@ -1,6 +1,6 @@
 package com.earthadmin.service.impl;
 
-import com.earthadmin.entity.Image;
+import com.earthadmin.domain.entity.Image;
 import com.earthadmin.mapper.ImageMapper;
 import com.earthadmin.service.ImageService;
 import org.springframework.beans.factory.annotation.Value;
@@ -92,7 +92,7 @@ public class ImageServiceImpl implements ImageService {
         int maxzoom = 19;
 
         Image image = new Image();
-        image.set_id(id);
+        image.setId(id);
         image.setName(name);
         image.setPath(path);
         image.setDesc(desc);
@@ -112,6 +112,16 @@ public class ImageServiceImpl implements ImageService {
         }
 
         return id;
+    }
+
+    @Override
+    public int updateImageById(Image image) {
+        return imageMapper.updateById(image);
+    }
+
+    @Override
+    public int deleteImageById(String id) {
+        return imageMapper.deleteById(id);
     }
 
 

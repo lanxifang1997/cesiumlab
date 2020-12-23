@@ -1,6 +1,7 @@
 package com.earthadmin.mapper;
 
-import com.earthadmin.entity.Image;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.earthadmin.domain.entity.Image;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @date 2020/12/14 10:59
  */
 @Mapper
-public interface ImageMapper {
+public interface ImageMapper extends BaseMapper<Image> {
     /**
      *
      * @param sort

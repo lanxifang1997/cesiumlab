@@ -1,6 +1,6 @@
 package com.earthadmin.service.impl;
 
-import com.earthadmin.entity.Scene;
+import com.earthadmin.domain.entity.Scene;
 import com.earthadmin.mapper.SceneMapper;
 import com.earthadmin.service.SceneService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +36,7 @@ public class SceneServiceImpl implements SceneService {
         //生成UUID
         String id = UUID.randomUUID().toString().replace("-","").toLowerCase();
         log.info("-----------------ID:"+id);
-        scene.set_id(id);
+        scene.setId(id);
         int temp = sceneMapper.saveScene(scene);
         if(temp!=1){
             return "";
@@ -48,13 +48,13 @@ public class SceneServiceImpl implements SceneService {
     /**
      * 根据id查询或加载场景
      *
-     * @param _id
+     * @param id
      * @return 结果
      */
     @Override
-    public Scene findSceneById(String _id) {
+    public Scene findSceneById(String id) {
 
-        Scene scene = sceneMapper.findSceneById(_id);
+        Scene scene = sceneMapper.findSceneById(id);
 
         return scene;
     }
@@ -77,6 +77,18 @@ public class SceneServiceImpl implements SceneService {
         // log.info("-----------更新scene"+scene.toString());
 
         return sceneMapper.updateSceneById(id,scene);
+    }
+
+    @Override
+    public int deleteById(String id) {
+        return sceneMapper.deleteById(id);
+    }
+
+    @Override
+    public void updateThumbnailById(String id, String thumbnail) {
+        Scene scene = sceneMapper.selectById(id);
+        scene.setThumbnail(thumbnail);
+        sceneMapper.updateById(scene);
     }
 
 

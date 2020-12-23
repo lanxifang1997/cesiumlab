@@ -2,7 +2,8 @@ package com.earthadmin.controller;
 
 import com.earthadmin.Utils.FileUtils;
 import com.earthadmin.dto.ResultEntity;
-import com.earthadmin.entity.Terrain;
+import com.earthadmin.domain.entity.Terrain;
+
 import com.earthadmin.service.TerrainService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -10,10 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -76,18 +74,45 @@ public class TerrainController {
     public ResultEntity uploadFolder(MultipartFile[] folder) {
 
         //E:/瓦片文件/Terrain
-        location = location+"terrain";
+       //location+"terrain";
 
         String result = terrainService.addTerrain(folder);
         if("".equals(result)){
             return ResultEntity.error("save terrain failed");
         }else if("terrainname is exist".equals(result)){
             return ResultEntity.error("terrainname is exist");
+        }else if("folder is null".equals(result)){
+            return ResultEntity.error("folder is null");
         }
-        FileUtils.saveMultiFile(location, folder,result);
+        FileUtils.saveMultiFile(location+"terrain", folder,result);
 
 
 
         return ResultEntity.success();
+    }
+
+
+    @ApiOperation("更新影像模型")
+    @PutMapping("/{id}")
+    public ResultEntity updateTerrainById(@PathVariable String id , Terrain terrain){
+        terrain.setId(id);
+        int temp = terrainService.updateTerrainById(terrain);
+        if(temp!=1){
+            ResultEntity.error();
+        };
+
+        return ResultEntity.success();
+    }
+
+    @ApiOperation("删除影像模型")
+    @DeleteMapping("/{id}")
+    public ResultEntity deleteTerrainById(@PathVariable String id){
+        int temp = terrainService.deleteTerrainById(id);
+        if(temp!=1){
+            ResultEntity.error();
+        }
+
+        return ResultEntity.success();
+
     }
 }

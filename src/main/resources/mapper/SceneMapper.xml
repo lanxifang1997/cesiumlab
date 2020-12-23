@@ -5,7 +5,7 @@
 <!-- namespace命名空间特殊作用： 如果使用mapper动态代理方法，这里就需要配置mapper接口地址-->
 
 <mapper namespace="com.earthadmin.mapper.SceneMapper">
-    <resultMap id="sceneResultMap" type="com.earthadmin.entity.Scene">
+    <resultMap id="sceneResultMap" type="com.earthadmin.domain.entity.Scene">
         <id property="_id" column="_id" />
         <result property="name" column="name"/>
         <result property="desc" column="desc"/>
@@ -14,19 +14,19 @@
         <result property="date" column="date"/>
         <result property="udate" column="udate"/>
     </resultMap>
-    <insert id="saveScene" parameterType="com.earthadmin.entity.Scene" >
+    <insert id="saveScene" parameterType="com.earthadmin.domain.entity.Scene" >
         INSERT INTO `scene`
-        (`_id`,`name`,`desc`,`content`,`thumbnail`,`date`,`udate`)
-        VALUES(#{_id}, #{name},#{desc}, #{content},#{thumbnail},sysdate(),sysdate())
+        (`id`,`name`,`desc`,`content`,`thumbnail`,`date`,`udate`)
+        VALUES(#{id}, #{name},#{desc}, #{content},#{thumbnail},sysdate(),sysdate())
 
     </insert>
 
 
-    <select id="findSceneById" resultType="com.earthadmin.entity.Scene" resultMap="sceneResultMap">
-        select `_id`,`name`,`desc`,`content`,`thumbnail`,`date`,`udate` from scene where _id = #{id}
+    <select id="findSceneById" resultType="com.earthadmin.domain.entity.Scene" resultMap="sceneResultMap">
+        select `id`,`name`,`desc`,`content`,`thumbnail`,`date`,`udate` from scene where id = #{id}
     </select>
 
-    <update id="updateSceneById" parameterType="com.earthadmin.entity.Scene">
+    <update id="updateSceneById" parameterType="com.earthadmin.domain.entity.Scene">
             update scene
             <set>
                 <if test="scene.name!=null">
@@ -43,7 +43,7 @@
                 </if>
                 `udate` = sysdate()
             </set>
-            where `_id`= #{_id}
+            where `id`= #{id}
         </update>
 
 

@@ -1,5 +1,7 @@
-package com.earthadmin.entity;
+package com.earthadmin.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.earthadmin.common.entity.BaseEntity;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
@@ -12,11 +14,12 @@ import lombok.Data;
  */
 @Data
 @Table(name = "user")
-public class User {
+public class User extends BaseEntity {
 
-    @Column(name = "u_id",type = MySqlTypeConstant.INT,length = 11,isKey = true,isAutoIncrement = true)
-    private Integer Uid;
-    @Column(name = "name",type = MySqlTypeConstant.VARCHAR,length = 45)
-    private String name;
+
+    @TableField("password")
+    @Column(name = "password",type = MySqlTypeConstant.VARCHAR,length = 45)
+    private String password;
+
 
 }

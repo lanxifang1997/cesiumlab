@@ -2,7 +2,7 @@ package com.earthadmin.controller;
 
 import com.earthadmin.Utils.FileUtils;
 import com.earthadmin.dto.ResultEntity;
-import com.earthadmin.entity.Image;
+import com.earthadmin.domain.entity.Image;
 import com.earthadmin.service.ImageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -76,7 +73,7 @@ public class ImageController {
     public ResultEntity uploadFolder(MultipartFile[] folder) {
 
         //E:/瓦片文件/image
-        location = location+"image";
+        //location+"image";
 
         String result = imageService.addImage(folder);
         if("".equals(result)){
@@ -84,7 +81,7 @@ public class ImageController {
         }else if("imagename is exist".equals(result)){
             return ResultEntity.error("imagename is exist");
         }
-        FileUtils.saveMultiFile(location, folder,result);
+        FileUtils.saveMultiFile(location+"image", folder,result);
 
 
 
@@ -92,5 +89,27 @@ public class ImageController {
     }
 
 
+    @ApiOperation("更新影像模型")
+    @PutMapping("/{id}")
+    public ResultEntity updateImageById(@PathVariable String id , Image image){
+        image.setId(id);
+        int temp = imageService.updateImageById(image);
+        if(temp!=1){
+            ResultEntity.error();
+        };
 
+        return ResultEntity.success();
+    }
+
+    @ApiOperation("删除影像模型")
+    @DeleteMapping("/{id}")
+    public ResultEntity deleteImageById(@PathVariable String id){
+        int temp = imageService.deleteImageById(id);
+        if(temp!=1){
+            ResultEntity.error();
+        };
+
+        return ResultEntity.success();
+
+    }
 }

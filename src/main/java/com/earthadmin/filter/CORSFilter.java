@@ -7,6 +7,7 @@ package com.earthadmin.filter;
 
 import com.earthadmin.mapper.ModelsMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.Resource;
 import javax.servlet.*;
@@ -21,6 +22,9 @@ import java.io.IOException;
 //@Order(value = 1)
 @Slf4j
 public class CORSFilter implements Filter {
+
+    @Value("${CROS_ALLOWED_ORIGINS}")
+    private String[] allowedOrigins;
 
     @Resource
     private ModelsMapper modelsMapper;
@@ -48,13 +52,13 @@ public class CORSFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse resp=(HttpServletResponse)response;
         HttpServletRequest rep = (HttpServletRequest) request;
-        resp.setHeader("Access-Control-Allow-Origin", rep.getHeader("Origin"));
-        resp.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT, OPTIONS, DELETE,PUT");
-        resp.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorizationaccept, origin, content-type, token");
-        //允许跨域请求中携带cookie
-        resp.setHeader("Access-Control-Allow-Credentials","true");
-        String path = rep.getServletPath();
-        log.info("------------------------------------path"+path);
+//        resp.setHeader("Access-Control-Allow-Origin", rep.getHeader("Origin"));
+//        resp.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT, OPTIONS, DELETE,PUT");
+//        resp.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorizationaccept, origin, content-type, token");
+//        //允许跨域请求中携带cookie
+//        resp.setHeader("Access-Control-Allow-Credentials","true");
+//        String path = rep.getServletPath();
+//        log.info("------------------------------------path"+path);
 //        if(path.endsWith(".json")||path.endsWith(".b3dm") ||path.endsWith(".glb")){
 //            log.info("------------------------------------这是一个访问静态资源的请求");
 //
@@ -65,7 +69,7 @@ public class CORSFilter implements Filter {
 //            Model modelById = modelsMapper.findModelById(str[1]);
 //
 //            log.info("new File(modelById.getPath()).getParent()="+new File(modelById.getPath()).getParent());
-//            String oldUrl = "/"+str[0]+"/"+ modelById.get_id();
+//            String oldUrl = "/"+str[0]+"/"+ modelById.getId();
 //           // String newUrl = new File(modelById.getPath()).getParent() ;
 //            String newUrl = "localhost:8080";
 //            String resourceUrl = StringUtils.replace(path, oldUrl, newUrl).replace("\\","/");
