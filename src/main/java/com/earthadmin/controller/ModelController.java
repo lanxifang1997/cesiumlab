@@ -48,7 +48,7 @@ public class ModelController {
      */
     @ApiOperation("加载Lab服务")
     @GetMapping
-    public ResultEntity findModelSortDateOrDesc(String sort, String sortfield){
+    public ResultEntity findModelSortDateOrDesc(@PathVariable String sort, String sortfield){
 //        if(sortfield==null ||"".equals(sortfield.trim())){
 //            ResultEntity.error("sortfield不能为空");
 //        }

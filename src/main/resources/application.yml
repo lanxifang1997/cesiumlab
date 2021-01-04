@@ -1,20 +1,28 @@
 server:
-  port: 9000   #配置本服务器的端口为8080
+  port: 9005   #配置本服务器的端口为9001
 spring:
-  #数据库连接配置
+  #mysql数据库连接配置
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/cesiumlab3?useSSL=false&serverTimezone=CST&allowMultiQueries=true
+#    username: root
+#    password: root
+#    type: com.alibaba.druid.pool.DruidDataSource
+
+  #sqlite数据库配置
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/cesiumlab?useSSL=false&serverTimezone=CST&allowMultiQueries=true
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:C:\\earthadmin\\sqlite\\dataserver.db
     username: root
-    password: root
-    type: com.alibaba.druid.pool.DruidDataSource
+    password: a12345
+
 
 #mybatis的相关配置
 mybatis:
 
   #自动更新表
   table:
-    auto: update
+    auto: none
   #实体类扫描地址
   model:
     pack: com.earthadmin.domain.entity
@@ -47,7 +55,9 @@ logging:
 
 accessFile:
   resourceHandler: /** #匹配需要拦截的URL
-  location: E:/瓦片文件/  #本地文件夹
+  location: C:/resources/  #本地文件夹
+  blockRule: /Examples/**,/**/*.css,/**/*.js,/**/*.min.js,/**/*.png,/**/*.jpg,/**/*.ico,/**/*.ttf,/**/*.woff
+
 
 
 mybatis-plus:
@@ -59,5 +69,5 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-CROS_ALLOWED_ORIGINS: http://localhost:9530,http://10.168.1.145:9530
+CROS_ALLOWED_ORIGINS: http://localhost:9530,http://localhost:9995,http://localhost:9000,http://10.168.1.145:9530,http://10.168.1.145:9000,http://10.168.1.126:9000
 

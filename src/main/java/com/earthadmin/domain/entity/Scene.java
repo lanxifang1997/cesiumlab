@@ -38,8 +38,8 @@ public class Scene extends BaseEntity {
     @Column(name = "content",type = MySqlTypeConstant.TEXT)
     private String content;
 
-    @Column(name = "thumbnail",type = MySqlTypeConstant.TEXT)
-    private String thumbnail;
+//    @Column(name = "thumbnail",type = MySqlTypeConstant.TEXT)
+//    private String thumbnail;
 //
 //    @Column(name = "date",type = MySqlTypeConstant.DATETIME)
 //    private String date;

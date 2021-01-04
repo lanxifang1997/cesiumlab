@@ -4,6 +4,7 @@ import com.earthadmin.security.Handler.CustomAccessDeniedHandler;
 import com.earthadmin.security.Handler.CustomLogoutSuccessHandler;
 import com.earthadmin.security.Handler.LoginFailureHandler;
 import com.earthadmin.security.Handler.LoginSuccessHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -39,6 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
+    /**
+     * 上传文件保存的本地目录
+     */
+    @Value("${accessFile.blockRule}")
+    private String[] blockRule;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -46,7 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+        web.ignoring().antMatchers(blockRule);
+        //web.ignoring().antMatchers("/statics/**");
+
     }
 
     @Override
@@ -60,8 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 /*登录配置*/
                 .formLogin()
-                .loginPage("http://10.168.1.145:9530/Apps/Demos/Viewer/login.html")   //登录页，当未登录时会重定向到该页面
-                .successHandler(loginSuccessHandler)   //登录成功处理
+                //.loginPage("/statics/Apps/Demos/Viewer/login.html")
+                .loginPage("http://localhost:12001/Apps/Demos/Viewer/index.html") //登录页，当未登录时会重定向到该页面
+                .successHandler(loginSuccessHandler)   //登录成功处理 `
                 .failureHandler(loginFailureHandler)  //登录失败处理
                 .loginProcessingUrl("/login")//前端登录请求地址
                 .usernameParameter("username")//默认的用户名参数
